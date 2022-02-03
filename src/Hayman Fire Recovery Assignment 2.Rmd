@@ -91,6 +91,9 @@ full_wide %>%
 
 ```
 
+Based on the chart above, there is a positive correlation between the daily  Normalized Difference Moisture Index (NDMI) and vegetation health as measured by NDVI in the summer months (June-October). There is a regime shift in the NDVI values of the burned area between pre-fire (higher NDVI values) and post-fire (lower NDVI values) measurements.
+
+
 ### Monthly NDVI vs NDMI
 
 ```{r, warning = FALSE, message=FALSE, fig.width = 8, fig.height = 5}
@@ -115,6 +118,9 @@ full_wide %>%
     )
 
 ```
+
+Based on the average NDVI and NDMI values at the monthly level presented above for summer months only (June-October), there is a more clear distinction between burned and unburned areas. The burned area vegetation health (NDVI) responds more positively to changes in moisture (NDMI) compared to the unburned area.
+
 
 ## Question 2)
 
@@ -158,6 +164,8 @@ ggplot(seas_yr_mean, aes(x = ndsi_winter, y = ndvi_summer, color = site)) +
 
 ```
 
+Based on the data presented above, there is not a clear relationship between snow as measured by NDSI in the winter (Jan-Apr) and vegetation health as measured by NDVI in the summer (Jun-Aug). This could be due to the vegetation species present in this area which is predominatley slow-growing, conifer forest.
+
 ## Question 3)
 
 How is the snow effect from question 2 different between pre- and post-burn
@@ -195,12 +203,12 @@ ggplot(., aes(x = ndsi_winter, y = ndvi_summer, color = pre_post_fire)) +
 
 ```
 
+Based on the data above, there does not appear to be a strong relationship between snow in the winter and vegetation health in the summer. The lack of relationship holds even when separating the influences of pre- and post-fire and burned and unburned area. Again, there is a regime shift in the NDVI values of the burned area in the post-fire measurements which are significantly lower than pre-fire conditions.
+
 
 ## Question 4)
 
 What month is the greenest month on average?
-
-Overall, August is typically the greenest month based on average NDVI.
 
 ### Quick monthly NDVI chart
 ```{r, warning = FALSE, message = FALSE, fig.width = 8, fig.height = 5}
@@ -217,6 +225,9 @@ ggplot(full_long %>% filter(data=="ndvi"), aes(as.factor( month(DateTime) ), val
   theme_bw()
 
 ```
+
+Overall, August is typically the greenest month based on average NDVI. It is possible that this impact changes when looking at the impacts of the fire in burned and unburned areas (see below).
+
 
 ### Detailed monthly NDVI chart
 
@@ -259,12 +270,12 @@ ggplot(., aes(x = as.factor(month), y = ndvi, fill = pre_post_fire)) +
 
 ```
 
+When separating the effects of the fire on NDVI in burned and unburned areas, the monthly trend in vegetation health is similar to the overall results. However, in the unburned area the greenest month shifts from August in pre-fire measurements to September in post-fire measurements.
+
 
 ## Question 5) 
 
 What month is the snowiest on average?
-
-Overall, January is typically the snowiest month based on average NDSI.
 
 ### Quick monthly NDSI chart
 ```{r, warning = FALSE, message = FALSE, fig.width = 8, fig.height = 5}
@@ -282,6 +293,8 @@ ggplot(full_long %>% filter(data=="ndsi"), aes(as.factor( month(DateTime) ), val
   theme_bw()
 
 ```
+
+Overall, January is typically the snowiest month based on average NDSI.
 
 
 ## Bonus Question 1) 
