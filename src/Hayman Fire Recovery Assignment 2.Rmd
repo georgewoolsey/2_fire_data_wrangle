@@ -198,7 +198,9 @@ ggplot(., aes(x = ndsi_winter, y = ndvi_summer, color = pre_post_fire)) +
 
 ## Question 4)
 
-What month is the greenest month on average? 
+What month is the greenest month on average?
+
+Overall, August is typically the greenest month based on average NDVI.
 
 ### Quick monthly NDVI chart
 ```{r, warning = FALSE, message = FALSE, fig.width = 8, fig.height = 5}
@@ -262,6 +264,8 @@ ggplot(., aes(x = as.factor(month), y = ndvi, fill = pre_post_fire)) +
 
 What month is the snowiest on average?
 
+Overall, January is typically the snowiest month based on average NDSI.
+
 ### Quick monthly NDSI chart
 ```{r, warning = FALSE, message = FALSE, fig.width = 8, fig.height = 5}
 
@@ -283,6 +287,25 @@ ggplot(full_long %>% filter(data=="ndsi"), aes(as.factor( month(DateTime) ), val
 ## Bonus Question 1) 
 
 Redo all problems with `spread` and `gather` using modern tidyverse syntax. 
+
+The modern tidyverse syntax for reshaping data from [long to wide](https://tidyr.tidyverse.org/reference/pivot_wider.html) is ```pivot_wider()``` and the syntax for reshaping data from [wide to long](https://tidyr.tidyverse.org/reference/pivot_longer.html) is ```pivot_longer()```. This syntax is utilized above in the section summarizing data by month, site, and a pre- post-fire grouping variable:
+
+```{r, warning = FALSE, message = FALSE, fig.width = 8, fig.height = 5}
+
+# summarize data by month, site, pre- post-fire
+means_month <- full_long %>% 
+  mutate(month = month(DateTime), year = year(DateTime)) %>% 
+  mutate(pre_post_fire =
+    case_when(
+      year < 2002 ~ "pre-fire"
+      , year > 2002 ~ "post-fire"
+      , TRUE  ~ "other")
+  ) %>% 
+  group_by(site, data, month, pre_post_fire) %>% 
+  summarize(mean_value = mean(value, na.rm = TRUE)) %>%
+  pivot_wider(names_from = c(data), values_from = mean_value)
+
+```
 
 
 ## Bonus Question 2)
